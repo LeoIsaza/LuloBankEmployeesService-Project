@@ -12,4 +12,3 @@ Feature:As a bank,
     Examples:
       | Operation | Id | Name | Salary |
     ##@externaldata@src/main/resources/com/lulobank/automation/DataEntrys/DataEntry_Api_Operations.xlsx@Hoja1
-

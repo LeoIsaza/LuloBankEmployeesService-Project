@@ -39,7 +39,7 @@ public class GetInformationService {
         }
         ReportLuloBank.reports("INFO", "NUMERO DE EMPLEADOS:             " + idQunantity);
         ReportLuloBank.reports("INFO", "PROMEDIO DE EDAD:                " + ageAvg / idQunantity + " AÑOS");
-        ReportLuloBank.reports("INFO", "PAGO NOMINA TOTAL PARA ESTE MES: " + salaryAvg / idQunantity + " COP");
+        ReportLuloBank.reports("INFO", "PAGO NOMINA TOTAL PARA ESTE MES: " + salaryAvg  + " COP");
         informationEmployees.add(String.valueOf(message));
         informationEmployees.add(String.valueOf(ageAvg));
         informationEmployees.add(String.valueOf(salaryAvg));
@@ -54,10 +54,14 @@ public class GetInformationService {
             String id = SerenityRest.lastResponse().getBody().jsonPath().getString("id");
             name = SerenityRest.lastResponse().getBody().jsonPath().getString("data.employee_name");
             salary = SerenityRest.lastResponse().getBody().jsonPath().getString("data.employee_salary");
-            ReportLuloBank.reports("SUCCESS", "El empleado si se encuentra registrado en la API de LuloBank, con los siguientes datos:");
-            ReportLuloBank.reports("INFO", "id: " + id);
-            ReportLuloBank.reports("INFO", "NOMBRE: " + name);
-            ReportLuloBank.reports("INFO", "SALARIO: " + salary);
+            if (!id.equals("null")) {
+                ReportLuloBank.reports("PASS", "El empleado si se encuentra registrado en la API de LuloBank, con los siguientes datos:");
+                ReportLuloBank.reports("INFO", "id: " + id);
+                ReportLuloBank.reports("INFO", "NOMBRE: " + name);
+                ReportLuloBank.reports("INFO", "SALARIO: " + salary);
+            }else{
+                ReportLuloBank.reports("WARNING", "El empleado consultado no se encuenra inscrito en la Nomina de LuloBank");
+            }
         } catch (Exception e) {
             ReportLuloBank.reports("WARNING", "El usuario consultado no hace parte de la Nomina de LuloBank");
         }
